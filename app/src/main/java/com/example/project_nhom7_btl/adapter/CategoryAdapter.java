@@ -1,5 +1,6 @@
 package com.example.project_nhom7_btl.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     private List<CategoryEntity> categoryList;
     private OnItemClickListener listener;
+    private int selectedPosition = 0; // Mặc định chọn "Tất cả"
 
     public interface OnItemClickListener {
         void onItemClick(CategoryEntity category);
@@ -38,7 +40,24 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         CategoryEntity category = categoryList.get(position);
         holder.tvName.setText(category.getName());
-        holder.itemView.setOnClickListener(v -> listener.onItemClick(category));
+        
+        // Hiệu ứng khi được chọn
+        if (selectedPosition == position) {
+            holder.tvName.setSelected(true);
+            holder.tvName.setTextColor(Color.WHITE);
+        } else {
+            holder.tvName.setSelected(false);
+            holder.tvName.setTextColor(Color.BLACK);
+        }
+
+        holder.itemView.setOnClickListener(v -> {
+            int previousPosition = selectedPosition;
+            selectedPosition = holder.getAdapterPosition();
+            notifyItemChanged(previousPosition);
+            notifyItemChanged(selectedPosition);
+            
+            listener.onItemClick(category);
+        });
     }
 
     @Override
