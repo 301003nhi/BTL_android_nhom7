@@ -15,6 +15,7 @@
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.auth.LoginActivity" />
         <activity android:name=".ui.auth.RegisterActivity" />
+        <activity android:name=".ui.main.ProductDetailActivity" />
 
         <activity
             android:name=".ui.splash.SplashActivity"

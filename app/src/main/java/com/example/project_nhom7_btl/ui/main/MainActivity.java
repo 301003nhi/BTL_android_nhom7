@@ -73,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup Products Recycler (Vertical)
         productAdapter = new ProductAdapter(new ArrayList<>(), product -> {
-            Toast.makeText(this, "Xem chi tiết: " + product.getName(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, ProductDetailActivity.class);
+            intent.putExtra("product_id", product.getId());
+            startActivity(intent);
         });
         binding.rvProducts.setLayoutManager(new LinearLayoutManager(this));
         binding.rvProducts.setAdapter(productAdapter);
